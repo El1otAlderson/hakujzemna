@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drukarka</title>
+    <link rel="stylesheet" href="styl.css">
+    <link rel="icon" href="1.jpg" type="image/jpg">
+</head>
+<body  bgcolor="#7a00cc"></body>>
+
+    <header>
+        <h1> <center>Jak można schakować twoją drukarkę</center></h1>
+        
+    </header>
+
+    <main>
+        <section>
+            <h2>Czym jest protokół ipp?</h2>
+            <p>
+                IPP (Internet Printing Protocol) to protokół komunikacyjny, który umożliwia drukowanie dokumentów w sieci komputerowej, <br> zwłaszcza w środowisku internetowym.<br> IPP jest protokołem aplikacyjnym warstwy aplikacyjnej w stosie protokołów TCP/IP. </p>
+            
+        </section>
+
+        <section>
+            <h2>Po co się upublicznia drukarki do internetu?</h2>
+            <p>Prosta sprawa aby zdalnie drukować pliki </p>
+            <p>Takie rozwiązanie bardzo ułatwia prace/ życie gdyż nie musimy być podpięci fizycznie do drukarki tylko do sieci</p>
+        </section>
+
+        <section>
+            <h2>Jakie są negatywne skutki takiego rozwiązania? </h2>
+            <p>Jeżeli nie zabezpieczymy drukarki przed nieupoważnionym dostępem cyberprzestępca może zrobić poniższe rzeczy:</p>
+            <ul>
+                <li>Wydrukować coś na twojej drukarce</li>
+                <li>Wejść w panel administratora drukarki przy odrobinie sprytu i narobić szkód </li>
+                <li>W niektórych przypadkach gdy nasza drukarka sieciowa ma krytyczną dziurę bezpieczeństwa (skutkowaną brakiem aktualizacji jej) cyberprzestępca może wykonać tak zwany exploit o nazwie "Remote code execution" którego skutki mogą być bardzo złe na przykład <br> wejście do twojej sieci lokalnej (bardzo niebezpieczne dla twojej sieci), operowanie drukarką na poziomie firmwareowym (możliwośc narobienia jeszcze większych szkód twojej drukarce a nawet jej zniszczenie)</li>
+                
+            </ul>
+            <p></p>
+        </section>
+        <p> Okej pogadaliśmy o skutkach złego zabezpieczenia drukarki teraz pokaże jak można taki błąd wykorzystać czyli przechodzimy do części właściwej tego blogu!!! </p>
+        <br><br><br><br><section>
+            <h1>Krok pierwszy: Znalezienie drukarki używając strony <a href="https://shodan.io">shodan.io</a></p> </h1>
+            <img src="3.jpg" alt="shodan"width="600px" height="300px"> 
+            <p>Shodan.io to wyszukiwarka hostów czyli urządzeń które posiadają karte sieciową. Mozemy na niej znależć drukarki lodówki telewizory serwery itd. <br>Czemu można to wyszukać? : To proste! Bo to jest udostępnione do internetu </p>
+            <p> Wracając wchodzimy na strone shodan.io i wpisujemy nazwe producenta drukarki np brother oraz "printer"</p>
+            <img src="2.png" alt="shodan"width="600px" height="400px"> 
+            <p>I to juz! Na szczęście prawo jeszcze mi pozwala przeglądać strone internetową drukarki więc zróbmy to!   </p>
+            <img src="4.png" alt="shodan"width="800px" height="600px"> 
+            <p> Zazwyczaj hasło do takich stron jest defaultowe czyli możecie wyszukac wpisując serie model i producenta i dopisac default password w wyszukiwarce i otrzymacie informacje o domyslnym hasle</p>
+            <p>Po zalogowaniu moglibysmy zrestowac drukarke , zmienic ustawienia drukarki i sieciowe.</p>
+            <p>Jak podłączyć sie do drukarki?</p>
+            <p>Dobra jeżeli posiadasz swoją własną drukarkę bądz masz zgode aby na niej drukować rzeczy wchodzisz w windowsie "Dodaj drukarke lub skaner" pozniej klikasz "Mojej drukarki nie ma na liscie (Ale powinna byc jesli jest w twojej sieci LOKALNEJ!) " <br>Wybierasz dodaj drukarke uzywając ip lub nazwy hosta  </p>
+            <img src="5.png" alt="shodan"width="400px" height="300px"> 
+            <p> Pozniej klikasz dalej i wybierasz opcje urządzenie ipp wpisujesz adres ip i gotowe! Jest dodana drukarka do twojego komputera!</p>
+            <img src="6.png" alt="shodan"width="400px" height="300px"> 
+
+
+
+        </section>
+        <section>
+            <h2>A jak przed tym sie zabezpieczyc ??? </h2>
+            <p>Pokaże ci listę dobrych praktyk</p>
+            <ul>
+                <li>Zablokuj port 631  dla sieci WAN w firewallu routera , dzięki czemu osoba z  zewnątrz (z internetu) nie będzie mogła się połączyć z twoją drukarką</li>
+                <li>Zmień hasło do drukarki  - Tym sposobem zniechęcisz 90% ludzi do "hakowania jej " No i zapobiegniesz przed atakiem podstawowych botów </li>
+                <li>Aktualizuj drukarkę! Aktualizacja jej nie dość że poprawia jej pracę to jeszcze dodaje łatki bezpieczeństwa które zniwelują szanse na atak exploitem do minimum.</li>
+                <li> Dodaj tylko określone adresy które mogą się łączyć z tą drukarką - jeżeli pracujesz w domu i chcesz coś wydrukować w pracy poproś admina (albo zrób to sam jeśli masz zgode!) Dodaj regułę w firewallu routera i drukarki o ile taką funkcje ma!</li>
+                
+            </ul>
+        </section><br><br><br><br>
+        <section>
+            <h2>Dla ciekawskich!</h2>
+            <p>Szanuje że dotrwałeś do tej sekcji artykułu </p>
+            <p>Pisałem o ataku exploitem racja? Chętnie ci pokaże projekt pewnego użytkownika który bardziej się wgłębił w ten temat niż ja! </p>
+            <p><a href="https://github.com/RUB-NDS/PRET">Projekt! </a></p>
+            <p>Jeżeli jest ktoś zainteresowany zarządzaniem drukarką na poziomie firmwareowym polecam zobaczyć ci ten program! PRET to aplikacja napisana w pythonie która za pomocą języków takich jak postscript PJL i PCL pozwala operować drukarką na poziomie bardzo zaawansowanym</p>
+            <p> Instalacja</p>
+                <p>PRET wymaga tylko interpretera języka Python2. Aby jednak uzyskać kolorowe wyjście i obsługę SNMP, należy zainstalować moduły innych firm:</p>
+                
+                <ul>
+                    <li>install colorama pysnmp</li>
+                </ul>
+                <p>Jeśli jest uruchomiony na konsoli systemu Windows, a znaki Unicode nie są wyświetlane poprawnie, zainstaluj moduł win_unicode_console:</p>
+                <ul>
+                    <li>install win_unicode_console</li>
+                </ul>  
+                
+                
+                
+                <p>W przypadku eksperymentalnego, "bezsterownikowego" drukowania (patrz polecenie print), należy zainstalować ImageMagick i GhostScript:</p>
+                <ul>
+                    <li>apt-get install imagemagick ghostscript</li>
+                </ul>  
+                <p>O to przykładowa komenda!</p>
+                <ul>
+                    <li>./pret.py (przykładowa nazwa hosta/ip) (nazwa języka drukarki)</li>
+                </ul> 
+
+
+
+
+                <br><br><br>
+                <p>To koniec artykułu dziękuje ci że poświęciłeś czas na przeczytanie jego i mam nadzieję że czegoś się niego nauczyles (oczywiście legalnego &#128513;)</p>
+                <p>Żródła!</p>
+                <ul>
+                    <li><a href="https://shodan.io">shodan.io</a></li>
+                    <li> <a href="https://github.com/RUB-NDS/PRET">PRET </a></li>
+                    <li><a href="https://tryhackme.com/room/printerhacking101">Stąd brałem informacje! </a></li>
+                    
+                    
+                </ul>
+
+        
+        </section>
+    </main>
+
+    <footer>
+        <p>Jakub Węgrzyn</p>
+    </footer>
+
+</body>
+</html>
