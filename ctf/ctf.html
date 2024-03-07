@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PICKLEEE RICK</title>
+    <link rel="icon" href="Pickle_Rick_Episode.png" sizes="16x16" type="image/png">
+    <link rel="stylesheet" href="ctf.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>CTF Pickle Rick </h1>
+        </div>
+    </header>
+    
+    <main class="container">
+        <article>
+            <h2>Cześc! Wróciłem po przerwie i wpadłem na pomysł  </h2>
+            <p>Aby zrobić "walkthrough" CTF'a z tryhackme o nazwie "Pickle Rick" <a href="https://tryhackme.com/room/picklerick">picklerick</a></p>
+            <p>Wiem jest już wiele artykułów w internecie z rozwiązaniem tego pokoju ale nie po polsku haha.</p>
+            <p>Okej więc zacznijmy!</p>
+            <img src="Pickle_Rick_Episode.png" width="400px" height="300px">
+            
+        </article>
+    
+        <article>
+            <h2>Okej słowa wstępu</h2>
+            <p>W tym CTF'ie musimy znalezć 3 składniki aby odmienić Pickle Ricka w Ricka więc odpalam maszynę i do dzieła!</p>
+            <img src="p1.png" width="800px" height="450px">
+        </article>
+    
+        <article>
+            <h2>Krok 1: Uruchomienie maszyny połączenie się z openvpn i uzycie nmap z nikto</h2>
+            <p>Dobrym ruchem na początku jest użycie narzędzi do rekonesansu . W tym przypadku użyjemy nmapa i nikto.</p>
+            <br>
+            Nmap umożliwia skanowanie portów i poszukiwanie  protokołów na danym adresie IP / hoście.<br>
+            A nikto na skanowanie katalogów i poszukiwaniu luk w zabezpieczeniach stron internetowych. <br>
+            <img src="p2.png" width="600px" height="400px"> 
+            <p>Z tego co widzimy są dwie dostępne usługi ssh i http</p>
+            <p>Teraz uruchomie nikto i zobaczymy strone internetową</p>
+            <img src="p3.png" width="600px" height="600px">
+            <br>
+            <p>Pierwszym moim skojarzeniem był "burrrrrp" czyli burpsuitem - (aplikacja która umożliwia przechwytywanie requestów http i podglądu ich oraz do pentestingu stron internetowych) <br>
+               <img src="p5.png" >
+               <br>
+                Niestety to była zmylka nic ciekawego tam nie było D:</p>
+            <p>Zobaczmy kod źródłowy strony!</p>
+            <img src="p4.png" >
+            <p>Znalezlismy jakiś username raczej nam się przyda </p>
+            <br>
+            Username: R1ckRul3s
+            <p>Zerknijmy co u nikto </p>
+            <img src="p6.png">
+            <p>Dowiedzieliśmy się paru ciekawych rzeczy 1. panel logowania 2. robots.txt - (lista stron która jest niemożliwa do wyszukania przez wyszukiwarke google)</p>
+            <img src="p7.png">
+            <p>Mamy panel logowania i Wubbalubbadubdub?? Sprawdzę czy pasuje jako hasło</p>
+            <br>
+            
+
+
+        </article>
+    
+        <article>
+            <h2>Panel i komendy?</h2>
+            <img src="p8.png" width="1000px" height="500px">
+            <p>Udało się! mamy dostęp do panela komend i kilka zakładek</p>
+            <img src="p9.png" width="1000px" height="500px">
+            <p>Niestety zakładki są zablokowane dla nas wracajmy do komend</p>
+            <p>Byc moze to komendy do linuxa? Sprawdzam!</p>
+            <img src="p10.png" width="1000px" height="500px">
+            <p>Mamy coś! Sprawdze co to</p>
+            <img src="p11.png" width="1000px" height="500px">
+            <p>D: Sprobuje innych komend head tail  nie działa może tac ? </p>
+            <img src="p12.png" width="1000px" height="500px"><br>
+            
+            Mamy to! 
+
+        </article>
+        <article>
+            <h2>Przechodzenie przez katalogi</h2>
+            <p>Dobra mamy pierwszą flage pora odczytac pozostałe pliki</p>
+            <img src="p13.png">
+            <p>Widzimy teraz zablokowane komendy</p>
+            <p> Zobaczmy czy mozemy uzyć sudo </p>
+            <img src="p14.png">
+            <p>Bingo!</p>
+            <img src="p15.png">
+            <p>Przechodzi</p>
+            <img src="p16.png">
+            <br>
+            <img src="p17.png">
+            <br>
+            <img src="p18.png">
+            <p>Mamy kolejną flage!</p>
+            <img src="p19.png">
+            
+        </article>
+        <article>
+            <h2>Reverse shell ssh python Remote Code execution</h2>
+            <p>Nie chce mi się przechodzic przez te katalogi wiec wpadłem na pomysł sprawdze czy działa python w komendach</p>
+            
+            <p>Remote code execution to bardzo poważna luka która umozliwia wysyłanie poleceń/komend do serwera ofiary </p>
+            <img src="p20.png">
+            <p>Jest! Mam pomysł wykorzystam coś takiego jak reverse shell czyli kod który umozliwia połączenie sie z moim komputerem .<br> Ten kod trzeba odpalić u ofiary i włączyć netcat  u mnie- aplikacja do nasluchiwania połączen przychodzących bez tego nie złapie połączenia </p>
+            <p>Pierwszy lepszy reverse shell gen python </p>
+            <p>Wpisujemy nasz adres ip i port do nasłuchu kopiujemy i ustawiamy netcata</p>
+            <img src="p21.png">
+            <br>
+            <img src="p22.png">
+            <img src="p23.png">
+            <p>Udało się! Jestesmy w linuxowym terminalu</p>
+            <img src="p24.png">
+            <p>Nie udalo sie sprobujmy ls</p>
+            <img src="p26.png">
+            <img src="p25.png">
+            <p>Ostatnia flaga! dobra gra!</p>
+            <img src="p27.png">
+            <p>GG Dzięki wielkie za uwagę i mam nadzieję że wam się podobało gdyż takich walkthroughów będe robił więcej</p>
+            
+        </article>
+        
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p> Jakub Węgrzyn</p>
+        </div>
+    </footer>
+</body>
+</html>
